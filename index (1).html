@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>La Jauría - Blog Canino</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background-image: linear-gradient(rgba(255,255,255,0.65), rgba(255,255,255,0.65)),
+                              url('https://lh3.googleusercontent.com/d/156Wdb-kJqEbdEFdP1oIcu2664pgP0fEb');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Verdana', Geneva, sans-serif;
+            font-weight: 500;
+            color: #2e473b;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            word-spacing: 2px;
+            letter-spacing: 0.5px;
+        }
+        header {
+            background-color: #4a6741;
+            color: #ffffff;
+            text-align: center;
+            padding: 60px 20px 0px 20px;
+            margin: 0;
+            width: 100%;
+            position: relative;
+        }
+        h1 {
+            margin: 0 0 20px 0;
+            padding: 0;
+            font-family: 'Georgia', serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 8px rgba(0,0,0,0.4);
+        }
+        nav {
+            background-color: #2e473b;
+            width: 100%;
+            height: 50px;
+            margin: 0;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+        }
+        nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 5px; height: 100%; align-items: center; }
+        nav ul li { height: 100%; display: flex; align-items: center; }
+        nav ul li a {
+            color: #d9ead3;
+            text-decoration: none;
+            padding: 0 18px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-right: 1px solid rgba(255,255,255,0.15);
+            transition: 0.3s;
+        }
+        nav ul li a:hover { background-color: #4a6741; color: #fff; letter-spacing: 2px; }
+        nav ul li:last-child a { border-right: none; }
+
+        .contenedor { padding: 40px 10%; margin: 0 auto; max-width: 1200px; position: relative; }
+
+        h2.bienvenida {
+            text-align: center;
+            font-family: 'Georgia', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #3a5233;
+            margin: 0 0 40px 0;
+            padding: 10px 0;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+        }
+        h3 { text-align: center; line-height: 2; letter-spacing: 1px; margin: 0 0 15px 0; }
+
+        article {
+            background-color: rgba(230,240,230,0.6);
+            padding: 30px;
+            margin: 0 0 30px 0;
+            border-left: 8px solid #4a6741;
+            border-radius: 5px;
+            width: 100%;
+            position: relative;
+        }
+
+        #intro-blog, .texto-destacado {
+            text-align: justify;
+            background-color: rgba(210,230,210,0.5);
+            border-radius: 8px;
+            padding: 15px 20px;
+            border-left: 5px solid #4a6741;
+            font-size: 0.95rem;
+            line-height: 2;
+            color: #2e473b;
+            margin: 0 0 15px 0;
+            width: 100%;
+        }
+        #intro-blog:hover, .texto-destacado:hover { background-color: rgba(180,215,180,0.6); transition: 0.3s; }
+
+        #lista-curiosidades {
+            background-color: rgba(230,240,230,0.6);
+            padding: 30px;
+            margin: 0 0 30px 0;
+            border-radius: 5px;
+            border-left: 8px solid #4a6741;
+            width: 100%;
+        }
+        #lista-curiosidades h3 { color: #3a5233; text-transform: uppercase; letter-spacing: 2px; }
+        #lista-curiosidades ul { list-style: none; padding: 0; margin: 15px 0 0 0; }
+        #lista-curiosidades ul li {
+            padding: 12px 15px;
+            margin: 0 0 8px 0;
+            background-color: rgba(210,230,210,0.5);
+            border-radius: 8px;
+            border-left: 5px solid #4a6741;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        #lista-curiosidades ul li:hover { background-color: rgba(180,215,180,0.7); border-left: 5px solid #2e473b; padding-left: 22px; }
+        #lista-curiosidades ul li span.icono { font-size: 1.1rem; margin-right: 8px; }
+        #lista-curiosidades ul li span.dato { font-weight: bold; color: #305a5a; }
+
+        .menu-temas { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; padding: 0; margin: 0; }
+        .btn-tema {
+            background-color: #4a6741;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            display: inline-block;
+            box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
+            border: none;
+            cursor: pointer;
+            margin: 0;
+        }
+        .btn-tema:hover { background-color: #3a5233; transform: scale(1.07); box-shadow: 0px 6px 12px rgba(0,0,0,0.2); }
+
+        .seccion-tarjetas {
+            background-color: rgba(230,240,230,0.6);
+            padding: 30px;
+            margin: 0 0 30px 0;
+            border-left: 8px solid #4a6741;
+            border-radius: 5px;
+        }
+        .tarjetas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+        .tarjeta-perro {
+            background-color: rgba(255,255,255,0.85);
+            border-radius: 12px;
+            border: 2px solid #4a6741;
+            overflow: hidden;
+            transition: 0.3s;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .tarjeta-perro:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.18); }
+        .tarjeta-perro img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border: none;
+            border-radius: 0;
+            display: block;
+            margin: 0;
+            transition: 0.3s;
+        }
+        .tarjeta-perro img:hover { transform: scale(1.05); }
+        .tarjeta-perro .nombre-perro {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #2e473b;
+            text-align: center;
+            padding: 10px 8px 4px 8px;
+            letter-spacing: 0.5px;
+        }
+        .tarjeta-perro .etiqueta-perro {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.72rem;
+            font-weight: bold;
+            color: #444;
+            padding: 4px 10px 12px 10px;
+            text-align: center;
+        }
+        .punto { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+        .punto-rojo    { background-color: #e53935; }
+        .punto-azul    { background-color: #1e88e5; }
+        .punto-naranja { background-color: #fb8c00; }
+
+        .leyenda {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 20px;
+            font-size: 0.82rem;
+            color: #2e473b;
+            font-weight: bold;
+        }
+        .leyenda-item { display: flex; align-items: center; gap: 6px; }
+
+        .accordion-jauría { border-left: 8px solid #4a6741; border-radius: 5px; overflow: hidden; margin-bottom: 30px; }
+        .accordion-jauría .accordion-item { background-color: rgba(230,240,230,0.6); border: none; border-bottom: 1px solid #c2d9bc; }
+        .accordion-jauría .accordion-item:last-child { border-bottom: none; }
+        .accordion-jauría .accordion-button {
+            background-color: rgba(210,230,210,0.7) !important;
+            color: #2e473b !important;
+            font-weight: bold;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        .accordion-jauría .accordion-button:not(.collapsed) {
+            background-color: rgba(180,215,180,0.8) !important;
+            color: #1e3026 !important;
+            box-shadow: none;
+        }
+        .accordion-jauría .accordion-button::after { filter: invert(30%) sepia(40%) saturate(500%) hue-rotate(90deg); }
+        .accordion-jauría .accordion-body { background-color: rgba(230,240,230,0.6); padding: 20px; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 0; }
+        th { background-color: #4a6741; color: #fff; padding: 14px 18px; text-align: center; text-transform: uppercase; letter-spacing: 1.5px; font-size: 0.85rem; }
+        td { padding: 12px 18px; border-bottom: 1px solid #c2d9bc; text-align: center; color: #2e473b; line-height: 1.6; }
+        tr:nth-child(even) td { background-color: rgba(210,230,210,0.5); }
+        tr:hover td { background-color: rgba(180,215,180,0.6); transition: 0.2s; }
+
+        #historia { margin: 0 0 30px 0; width: 100%; position: relative; }
+        .titulo-historia {
+            background-color: #305a5a;
+            color: #fff;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'Georgia', serif;
+            cursor: pointer;
+            display: block;
+            border: none;
+            width: 100%;
+            margin: 0;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            transition: 0.3s;
+        }
+        .titulo-historia:hover { background-color: #3d7070; transform: scale(1.01); }
+        .historia-contenido {
+            display: none;
+            background-color: rgba(238,242,243,0.95);
+            border: 5px solid #305a5a;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 10px;
+            width: 100%;
+            animation: fadeIn 0.3s ease;
+        }
+        .historia-contenido.visible { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .galeria-vertical {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+        .galeria-vertical figure {
+            width: 100%;
+            max-width: 700px;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .galeria-vertical figure img {
+            width: 100%;
+            max-width: 700px;
+            height: auto;
+            border: 10px solid rgba(255,255,255,0.9);
+            border-radius: 8px;
+            display: block;
+            margin: 0 auto;
+            transition: 0.3s;
+        }
+        .galeria-vertical figure img:hover { border-color: #4a6741; transform: scale(1.01); }
+        .galeria-vertical figcaption {
+            font-style: italic;
+            margin-top: 12px;
+            color: #1a3333;
+            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            text-align: justify;
+            padding: 10px 15px;
+            background-color: rgba(210,230,210,0.4);
+            border-left: 4px solid #4a6741;
+            border-radius: 4px;
+        }
+
+        footer {
+            background-color: #ffffff;
+            color: #333;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            border-top: 3px solid #4a6741;
+            width: 100%;
+            line-height: 2;
+        }
+        footer p.pie-nombre { font-size: 1rem; color: #2e473b; font-weight: 800; letter-spacing: 1px; margin: 0; padding: 5px 0; }
+        footer p.pie-institucion { font-size: 0.85rem; color: #555; font-style: italic; margin: 0; padding: 5px 0; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>La Jauría</h1>
+
+        <nav>
+            <ul>
+                <li><a href="#inicio">🏠 Inicio</a></li>
+                <li><a href="#explorar">🐾 Explorar</a></li>
+                <li><a href="#lista-curiosidades">💡 Curiosidades</a></li>
+                <li><a href="#historia">📷 Historia</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="contenedor">
+
+        <h2 class="bienvenida" id="inicio">¡BIENVENIDOS A LA JAURÍA!</h2>
+
+        <p id="intro-blog">
+            Bienvenidos a <strong>La Jauría</strong>, un blog dedicado a nuestra manada canina.
+            Aquí encontrarás datos curiosos, nuestra historia, la jerarquía de nuestra jauría
+            y mucho más sobre la vida con nuestros perros. 🐕
+        </p>
+        <p class="texto-destacado">
+            Los perros son animales sociales que forman jerarquías naturales dentro de su grupo.
+            En nuestra jauría cada uno tiene su personalidad, su rol y su historia única. ¡Explora y conócelos!
+        </p>
+        <p class="texto-destacado">
+            Este blog es un proyecto personal que nació del amor por los animales
+            y las ganas de compartir todo lo que nos enseña vivir con una jauría. 🌿
+        </p>
+
+        <!-- TARJETAS -->
+        <div class="seccion-tarjetas">
+            <h3 style="color:#3a5233; text-transform:uppercase; letter-spacing:2px;">🐕 Nuestra Jauría</h3>
+            <div class="leyenda">
+                <span class="leyenda-item"><span class="punto punto-rojo"></span> Primera generación</span>
+                <span class="leyenda-item"><span class="punto punto-naranja"></span> Segunda generación</span>
+                <span class="leyenda-item"><span class="punto punto-azul"></span> Adoptado/a</span>
+            </div>
+            <div class="tarjetas-grid">
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1eS_lLzP8AlaEBOfy0INT3Gs91WifOxEW" alt="Chocolate">
+                    <div class="nombre-perro">Chocolate</div>
+                    <div class="etiqueta-perro"><span class="punto punto-azul"></span> Adoptada</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1TXCGDLbDARCjprzI9ickaiNCf-XUCRQ5" alt="Tamarindo">
+                    <div class="nombre-perro">Tamarindo</div>
+                    <div class="etiqueta-perro"><span class="punto punto-rojo"></span> Primera generación</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/10Adwtprp8BJh6QT3aKvFNXBBbXoVm0eJ" alt="Orion">
+                    <div class="nombre-perro">Orion</div>
+                    <div class="etiqueta-perro"><span class="punto punto-naranja"></span> Segunda generación</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1r49emf96glLf4ejscErOSCRIJn-Yv_Rt" alt="Melcocha">
+                    <div class="nombre-perro">Melcocha</div>
+                    <div class="etiqueta-perro"><span class="punto punto-rojo"></span> Primera generación</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1zqulRVNFgB4EMWju-jAlUc1jOZRrBT4H" alt="Capuchino">
+                    <div class="nombre-perro">Capuchino</div>
+                    <div class="etiqueta-perro"><span class="punto punto-rojo"></span> Primera generación</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1nqsAbMbV5rRg7mZ_8MwmK_Suuma3diYS" alt="Sushi">
+                    <div class="nombre-perro">Sushi</div>
+                    <div class="etiqueta-perro"><span class="punto punto-rojo"></span> Primera generación</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1hQJejp2Nx9FHqUh1iZ56hM-xs74GKhUB" alt="Obleita">
+                    <div class="nombre-perro">Obleita</div>
+                    <div class="etiqueta-perro"><span class="punto punto-naranja"></span> Segunda generación</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1zUuAoEBA_UxX11UKB5Tn9WD-OOLcBeBd" alt="Fritanga">
+                    <div class="nombre-perro">Fritanga</div>
+                    <div class="etiqueta-perro"><span class="punto punto-azul"></span> Adoptada</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1Jd6NiWBcOYI2ZUCrfpmUdCxSc6AKDYtv" alt="Cocada">
+                    <div class="nombre-perro">Cocada</div>
+                    <div class="etiqueta-perro"><span class="punto punto-azul"></span> Adoptada</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1800NwCFzMKOEcU3aLoMKFU0uKBTwmcn6" alt="Tiramisú">
+                    <div class="nombre-perro">Tiramisú</div>
+                    <div class="etiqueta-perro"><span class="punto punto-naranja"></span> Segunda generación</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1Ykcy4eMBarh2Y9QQ8FzZuBaWxVvhs0Sp" alt="Baileys">
+                    <div class="nombre-perro">Baileys</div>
+                    <div class="etiqueta-perro"><span class="punto punto-naranja"></span> Segunda generación</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1JmIQTc5N4aWTmID8Aoe3S-jMh9fhXTN1" alt="Miel">
+                    <div class="nombre-perro">Miel</div>
+                    <div class="etiqueta-perro"><span class="punto punto-azul"></span> Adoptada</div>
+                </div>
+                <div class="tarjeta-perro">
+                    <img src="https://lh3.googleusercontent.com/d/1G2a6Ro1jzSWi16JIoEvDtNYlAx5jxwo0" alt="Chandilly">
+                    <div class="nombre-perro">Chandilly</div>
+                    <div class="etiqueta-perro"><span class="punto punto-rojo"></span> Primera generación</div>
+                </div>
+            </div>
+        </div>
+
+  
+        <section id="lista-curiosidades">
+            <h3>💡 Curiosidades de jauría</h3>
+            <ul>
+                <li><span class="icono">🐾</span><span class="dato">Los perros en manada</span> se comunican con postura, mirada y olfato.</li>
+                <li><span class="icono">👑</span><span class="dato">El líder de la jauría</span> no se impone con agresividad, sino con calma y confianza.</li>
+                <li><span class="icono">🌿</span><span class="dato">Vivir con varios perros</span> requiere rutinas claras, paciencia y mucho amor.</li>
+                <li><span class="icono">💤</span><span class="dato">Los perros duermen</span> entre 12 y 14 horas al día para recuperar energía.</li>
+                <li><span class="icono">👃</span><span class="dato">El olfato de un perro</span> es hasta 100.000 veces más potente que el humano.</li>
+            </ul>
+        </section>
+
+        <!-- MENÚ -->
+        <article id="explorar">
+            <h3>Explora los temas de mi blog:</h3>
+            <div class="menu-temas">
+                <a href="https://www-aspca-org.translate.goog/pet-care/dog-care/general-dog-care?_x_tr_sl=en&_x_tr_tl=es&_x_tr_hl=es&_x_tr_pto=tc"
+                   class="btn-tema" target="_blank">Consejos de cuidado caninos según: ASPCA</a>
+            </div>
+        </article>
+
+    
+        <div class="accordion accordion-jauría" id="accordionJauría">
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseJerarquia">
+                        🐾 Jerarquía en la Jauría
+                    </button>
+                </h2>
+                <div id="collapseJerarquia" class="accordion-collapse collapse" data-bs-parent="#accordionJauría">
+                    <div class="accordion-body">
+                        <table>
+                            <tr><th>Posición</th><th>Nombre</th><th>Generación</th><th>Rol en la manada</th></tr>
+                            <tr><td>1°</td><td>Chocolate</td><td>Adoptada</td><td> Alfa y protector</td></tr>
+                            <tr><td>2°</td><td>Tamarindo</td><td>Primera generación</td><td>El segundo al mando</td></tr>
+                            <tr><td>3°</td><td>Melcocha</td><td>Primera generación</td><td>La exploradora</td></tr>
+                            <tr><td>4°</td><td>Capuchino</td><td>Primera generación</td><td>El guardián</td></tr>
+                            <tr><td>5°</td><td>Sushi</td><td>Primera generación</td><td>El gordito</td></tr>
+                            <tr><td>6°</td><td>Chandilly</td><td>Primera generación</td><td>El jugueton</td></tr>
+                            <tr><td>7°</td><td>Orion</td><td>Segunda generación</td><td>El curioso</td></tr>
+                            <tr><td>8°</td><td>Obleita</td><td>Segunda generación</td><td>La tranquila</td></tr>
+                            <tr><td>9°</td><td>Tiramisú</td><td>Segunda generación</td><td>El más pequeño</td></tr>
+                            <tr><td>10°</td><td>Baileys</td><td>Segunda generación</td><td>El travieso</td></tr>
+                            <tr><td>11°</td><td>Fritanga</td><td>Adoptada</td><td>La más consentida</td></tr>
+                            <tr><td>12°</td><td>Cocada</td><td>Adoptada</td><td>La mal criada</td></tr>
+                            <tr><td>13°</td><td>Miel</td><td>Adoptada</td><td>La más dulce</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseCositas">
+                        ✨ Cositas Únicas de Nosotros
+                    </button>
+                </h2>
+                <div id="collapseCositas" class="accordion-collapse collapse" data-bs-parent="#accordionJauría">
+                    <div class="accordion-body">
+                        <table>
+                            <tr><th>Nombre</th><th>Generación</th><th>Personalidad</th><th>Su cosa única 💚</th></tr>
+                            <tr><td>Chocolate</td><td>Adoptado</td><td>— jugueton hiperactivo —</td><td>— saca su lenguita cuando esta feliz —</td></tr>
+                            <tr><td>Tamarindo</td><td>Primera generación</td><td>— amoroso tranquilo —</td><td>— tiene un diente extra jaja —</td></tr>
+                            <tr><td>Orion</td><td>Segunda generación</td><td>— tranquilo protector —</td><td>— es muy protector —</td></tr>
+                            <tr><td>Melcocha</td><td>Primera generación</td><td>— hiperactiva y juguetona —</td><td>— corre de lado y salta muy alto —</td></tr>
+                            <tr><td>Capuchino</td><td>Primera generación</td><td>— jugueton hiperactivo —</td><td>— es el mas obediente de todos —</td></tr>
+                            <tr><td>Sushi</td><td>Primera generación</td><td>— tranquilo cariñoso —</td><td>— sus patitas cortas —</td></tr>
+                            <tr><td>Obleita</td><td>Segunda generación</td><td>— consentida dormilona —</td><td>— la hembra mas pequeña y linda —</td></tr>
+                            <tr><td>Fritanga</td><td>Adoptada</td><td>— celosa y consentida —</td><td>— es muy celosa cuando la concienten —</td></tr>
+                            <tr><td>Cocada</td><td>Adoptada</td><td>— muy arruchadora —</td><td>— es muy mordelona —</td></tr>
+                            <tr><td>Tiramisú</td><td>Segunda generación</td><td>— nervioso jugueton —</td><td>— es el macho mas pequeño —</td></tr>
+                            <tr><td>Baileys</td><td>Segunda generación</td><td>— dormilon —</td><td>— es muy amoroso y duerme mucho mas que los demas —</td></tr>
+                            <tr><td>Miel</td><td>Adoptada</td><td>— demasiado amorosa —</td><td>— es muy amable y muy dulce —</td></tr>
+                            <tr><td>Chandilly</td><td>Primera generación</td><td>— tranquilo feliz —</td><td>— amable y travieso —</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HISTORIA FOTOGRAFIADA -->
+        <div id="historia">
+            <button class="titulo-historia" onclick="toggleHistoria()">NUESTRA HISTORIA FOTOGRAFIADA:</button>
+            <div class="historia-contenido" id="historia-contenido">
+                <div class="galeria-vertical">
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/15WfVqT0mUSd_EMfKoP9RGSp5AKa74cQD" alt="Inicio de la jauría">
+                        <figcaption>Este fue el inicio de nuestra jauría.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1eJPar7pdf0XKcdjJJp5uDiTh1FnKrfpZ" alt="Primera generación recién nacida">
+                        <figcaption>Primera generación recién nacida.</figcaption>
+                    </figure>
+
+                  
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1nqZTPSZ7qxxp1OfHA4_fhjWdDesnf-2D" alt="Capuchino tomando una siesta">
+                        <figcaption>Capuchino tomando una siesta.</figcaption>
+                    </figure>
+
+                  
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1UfHMEXO0WjA0LC3KVe2Vj8I8wyDW0ehf" alt="Primera camada">
+                        <figcaption>Primera camada.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1TMfIwPU8JUMUuz9fXSMplnJI28PZrWOr" alt="Morcilla">
+                        <figcaption>Lastimosamente, la jauría tuvo un terrible accidente. El perrito negrito que se ve en esta foto se llamaba Morcilla — fue el primero en abrir los ojos, el primero en aprender a caminar, y a sus pocos meses de vida mató a un pollo antes de desarrollar completamente la vista. Era el más suavecito de todos. Pero una madrugada, Morena, la pitbull de mi papá, atacó a Morcilla fracturándole completamente el cráneo. En ese momento no sabíamos que había sido Morena, solo fue hasta que la vimos atacar a Tamarindo y fracturarle el cráneo de la misma manera. En diciembre tomamos la difícil decisión de dormir a Morena, ya que era una perra agresiva con otros perros, adultos e incluso niños.</figcaption>
+                    </figure>
+
+                  
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1hGUktk9uHkd1ppgMbNfm_NwwM7qTHkyS" alt="Morena">
+                        <figcaption>Morena.</figcaption>
+                    </figure>
+
+                    
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1OU3wVhCi_btZj6yHJ6S9nElyRKgv4Rxc" alt="Capuchino y Tamarindo">
+                        <figcaption>Capuchino y Tamarindo.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/10G94VyEKnJXPVzGq0BMOQSaGUz5uiNrZ" alt="Los cachorros explorando">
+                        <figcaption>Los cachorros explorando... no termina bien.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1Hwsqr5w_QQQ3YORN0qVG-4z6nxMYfsWL" alt="Capuchino y Chandilly">
+                        <figcaption>Capuchino y Chandilly.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1GnXeqWbJMEIYRoPbfKkmvu4ejCdH_x2a" alt="Salsa y Capuchino">
+                        <figcaption>Salsa y Capuchino.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1YXMC_FhQUrBkrzB-AU7AE4a0okg3hQB8" alt="Segunda camada">
+                        <figcaption>En octubre nació la segunda camada, ya que Salsa se escapó y volvió a quedar embarazada.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/17ncvo931CSmpGQ9DYs5_uy2VQ53ThRWE" alt="Seis perritos nuevos">
+                        <figcaption>Nacieron otros 6 perritos, de los cuales dimos en adopción a 2.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1F_hd4hi8EiacRxW-rzTLnd1xsPKewU5X" alt="El padre">
+                        <figcaption>Con esta camada nos dimos cuenta de que el padre chandoso no era.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1omWmX7lSQrdqEnbSbGGrD1C8qVkVeLL5" alt="Tamarindo consentido">
+                        <figcaption>Tamarindo siendo consentido. 🐾</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1-BK1Jsgcp_cN-mp163fFWssUo76VLNg8" alt="Alimentación canina">
+                        <figcaption>La alimentación canina es fundamental para mantener su salud — debe ser balanceada y proteínica. Nosotros les damos huesos crudos cada cierto tiempo y, obviamente, los alfas comen primero.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1UERZaHmOkitvXINcJzRYpJBi2-7N8cXV" alt="Tiramisú bebé">
+                        <figcaption>Tiramisú de bebé. 🍮</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/10XFkla4-VN-l0PxUonECSvNgpOGohbI0" alt="Las gemelas">
+                        <figcaption>Ellas son las gemelas. Un día nos fuimos de viaje a Coveñas y nos encontramos estas dos perritas comiendo basura en la calle — estaban llenas de parásitos y pulgas.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1yPwGilzIfuSFYE6foTPuwUWfoG6_tnOd" alt="Las gemelas rescatadas">
+                        <figcaption>Eran tan feas que no nos pudimos resistir, y las rescatamos. Fue un viaje largo pero llegaron a salvo a casa. A las dos les dio parvovirus — eran unas bolitas de huesos y gusanos.</figcaption>
+                    </figure>
+
+                    <figure>
+                        <img src="https://lh3.googleusercontent.com/d/1o7gE2D9-VCzaaEB6qPkIT3K0dcIWmsMi" alt="Las gemelas hoy">
+                        <figcaption>Con mucho amor y cuidado crecieron a ser los perros más importantes y grandes de toda la jauría. 💚</figcaption>
+                    </figure>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p class="pie-nombre"><strong>Antonia Vela Bernal</strong> | velaantonia23@gmail.com</p>
+        <p class="pie-institucion">Skolmi - Grado Décimo</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleHistoria() {
+            document.getElementById('historia-contenido').classList.toggle('visible');
+        }
+    </script>
+</body>
+</html>
